@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS EVENTS;
+
+CREATE TABLE EVENTS(
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  TITLE VARCHAR(100) NOT NULL,
+  DESCRIPTION VARCHAR(300),
+  CONTACT VARCHAR(100),
+  LOCATION VARCHAR(70),
+  PRICE INTEGER NOT NULL,
+  DEPOSIT INTEGER
+);
+INSERT INTO EVENTS(ID, TITLE, DESCRIPTION, PRICE, DEPOSIT) VALUES
+(321,'Event Numero Uno', 'This is the first event.', 200, null),
+(322,'Event Numero Dos', 'This is the second event.', 200, null),
+(323,'Event Numero Tres', 'This is the third event.', 200, null);
