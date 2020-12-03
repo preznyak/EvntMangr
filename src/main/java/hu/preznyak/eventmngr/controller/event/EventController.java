@@ -6,6 +6,9 @@ import hu.preznyak.eventmngr.model.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/")
 public class EventController {
@@ -21,5 +24,10 @@ public class EventController {
     public Event createEvent(@PathVariable String title, @PathVariable Integer price){
 
         return eventRepository.save(new EventBuilder().setTitle(title).setPrice(price).createEvent());
+    }
+
+    @GetMapping("event/findAll")
+    public Iterable<Event> findAllEvent(){
+        return eventRepository.findAll();
     }
 }
