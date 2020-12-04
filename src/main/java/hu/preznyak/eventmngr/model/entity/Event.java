@@ -1,6 +1,7 @@
 package hu.preznyak.eventmngr.model.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -9,37 +10,32 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "EVENT_ID")
     Integer id;
     @Column(name = "TITLE")
     String title;
     @Column(name = "DESCRIPTION")
     String description;
-    @Column(name = "PRICE")
-    Integer price;
-    @Column(name = "DEPOSIT")
-    Integer deposit;
-    @Column(name = "CONTACT")
-    String contact;
     @Column(name = "LOCATION")
     String location;
+    @Column(name = "START_DATE")
+    LocalDateTime startDate;
+    @Column(name = "END_DATE")
+    LocalDateTime endDate;
 
-    public Event(String title, String description, Integer price, Integer deposit) {
+    public Event(String title, String description, String location) {
         super();
         this.title = title;
         this.description = description;
-        this.price = price;
-        this.deposit = deposit;
+        this.location = location;
     }
 
-    public Event(String title, String description, Integer price, Integer deposit, String contact, String location) {
-        super();
+    public Event(String title, String description, String location, LocalDateTime startDate, LocalDateTime endDate) {
         this.title = title;
         this.description = description;
-        this.price = price;
-        this.deposit = deposit;
-        this.contact = contact;
         this.location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Event() {
@@ -69,20 +65,28 @@ public class Event {
         this.description = description;
     }
 
-    public Integer getPrice() {
-        return price;
+    public String getLocation() {
+        return location;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public Integer getDeposit() {
-        return deposit;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setDeposit(Integer deposit) {
-        this.deposit = deposit;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
     @Override
@@ -104,8 +108,6 @@ public class Event {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", price=" + price +
-                ", deposit=" + deposit +
                 '}';
     }
 }
