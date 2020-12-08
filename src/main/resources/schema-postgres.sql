@@ -7,5 +7,6 @@ CREATE TABLE EVENTS(
   LOCATION VARCHAR(70),
   START_DATE timestamp default CURRENT_TIMESTAMP,
   END_DATE timestamp default CURRENT_TIMESTAMP,
-  constraint event_id_pk PRIMARY KEY (EVENT_ID));
+  constraint event_id_pk PRIMARY KEY (EVENT_ID),
+  constraint title_constraint UNIQUE (TITLE));
 

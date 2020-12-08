@@ -12,7 +12,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "EVENT_ID")
     Integer id;
-    @Column(name = "TITLE")
+    @Column(name = "TITLE", unique = true)
     String title;
     @Column(name = "DESCRIPTION")
     String description;
