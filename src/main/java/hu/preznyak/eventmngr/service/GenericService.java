@@ -1,7 +1,5 @@
 package hu.preznyak.eventmngr.service;
 
-import java.util.List;
-
 public abstract class GenericService<T> {
 
     public abstract T save(T entity);
