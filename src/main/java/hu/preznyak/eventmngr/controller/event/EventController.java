@@ -3,6 +3,7 @@ package hu.preznyak.eventmngr.controller.event;
 import hu.preznyak.eventmngr.model.builder.EventBuilder;
 import hu.preznyak.eventmngr.model.entity.Event;
 import hu.preznyak.eventmngr.model.repository.EventRepository;
+import hu.preznyak.eventmngr.service.EventManagementService;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,10 +19,12 @@ import java.util.List;
 public class EventController {
 
     EventRepository eventRepository;
+    EventManagementService eventManagementService;
 
     @Autowired
-    public EventController(EventRepository eventRepository) {
+    public EventController(EventRepository eventRepository, EventManagementService eventManagementService) {
         this.eventRepository = eventRepository;
+        this.eventManagementService = eventManagementService;
     }
 
     @PostMapping("/create/title")
@@ -32,14 +35,12 @@ public class EventController {
 
     @GetMapping("/findAll")
     public ResponseEntity<Iterable<Event>> findAllEvent() {
-        return new ResponseEntity<>(eventRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(eventManagementService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        Event newEvent = eventRepository.save(new EventBuilder()
-                .setTitle(event.getTitle()).setDescription(event.getDescription()).setLocation(event.getLocation())
-                .setStartDate(event.getStartDate()).setEndDate(event.getEndDate()).createEvent());
+        Event newEvent = eventManagementService.save(event);
         return new ResponseEntity<>(newEvent, HttpStatus.CREATED);
     }
 
