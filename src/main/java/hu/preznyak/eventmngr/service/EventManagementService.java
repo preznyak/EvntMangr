@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hu.preznyak.eventmngr.constant.GeneralMessages;
+import hu.preznyak.eventmngr.exception.DateIntervalException;
 import hu.preznyak.eventmngr.model.entity.Event;
 import hu.preznyak.eventmngr.model.repository.EventRepository;
 
@@ -59,8 +60,12 @@ public class EventManagementService extends GenericService<Event> {
     	return eventRepository.findEventsByStartDateAfter(startDate);
     }
     
-    public List<Event> findEventsByStartDateBetween(LocalDateTime start, LocalDateTime end) {
-    	return eventRepository.findEventsByStartDateBetween(start, end);
+    public List<Event> findEventsByStartDateBetween(LocalDateTime start, LocalDateTime end) throws DateIntervalException {
+    	if (start.isBefore(end)) {
+    		return eventRepository.findEventsByStartDateBetween(start, end);
+    	} else {
+    		throw new DateIntervalException(GeneralMessages.START_AFTER_END_EXCEPTION);
+    	}
     }
     
     public Event findEventByTitle(String title) {

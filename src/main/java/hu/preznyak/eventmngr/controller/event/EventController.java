@@ -1,5 +1,6 @@
 package hu.preznyak.eventmngr.controller.event;
 
+import hu.preznyak.eventmngr.exception.DateIntervalException;
 import hu.preznyak.eventmngr.model.builder.EventBuilder;
 import hu.preznyak.eventmngr.model.entity.Event;
 import hu.preznyak.eventmngr.model.repository.EventRepository;
@@ -106,7 +107,7 @@ public class EventController {
 
     @GetMapping("/find/start/between")
     public ResponseEntity<List<Event>> findEventsByStartDateBetween(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-                                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+                                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) throws DateIntervalException {
         return new ResponseEntity<>(eventRepository.findEventsByStartDateBetween(start, end), HttpStatus.OK);
     }
 }
