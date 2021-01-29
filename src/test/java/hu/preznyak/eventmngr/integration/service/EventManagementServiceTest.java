@@ -21,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import hu.preznyak.eventmngr.constant.GeneralMessages;
 import hu.preznyak.eventmngr.exception.DateIntervalException;
+import hu.preznyak.eventmngr.exception.EntityNotFoundException;
 import hu.preznyak.eventmngr.model.entity.Event;
 import hu.preznyak.eventmngr.model.repository.EventRepository;
 import hu.preznyak.eventmngr.service.EventManagementService;
@@ -48,6 +49,7 @@ public class EventManagementServiceTest {
     @BeforeEach
     public void setup() {
     	event1 = Optional.of(new Event(TITLE, DESCRIPTION, LOCATION, START_DATE, END_DATE));
+    	event1.get().setId(1);
     	event2 = Optional.of(new Event(TITLE, DESCRIPTION, LOCATION, START_DATE, END_DATE));
     	events.add(event1.get());
     	events.add(event2.get());
@@ -76,8 +78,9 @@ public class EventManagementServiceTest {
     }
     
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws EntityNotFoundException {
     	Event testEvent = event1.get();
+    	when(eventRepository.findById(1)).thenReturn(event1);
     	when(eventRepository.save(testEvent)).thenReturn(testEvent);
     	
     	assertThat(eventManagementService.update(testEvent)).isEqualTo(testEvent);

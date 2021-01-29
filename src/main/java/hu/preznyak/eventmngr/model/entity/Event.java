@@ -1,8 +1,15 @@
 package hu.preznyak.eventmngr.model.entity;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "EVENTS")
@@ -13,6 +20,7 @@ public class Event {
     @Column(name = "EVENT_ID")
     Integer id;
     @Column(name = "TITLE", unique = true)
+    @NotNull(message = "Title is mandatory")
     String title;
     @Column(name = "DESCRIPTION")
     String description;

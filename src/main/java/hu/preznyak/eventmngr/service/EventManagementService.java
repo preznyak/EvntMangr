@@ -1,19 +1,24 @@
 package hu.preznyak.eventmngr.service;
 
 import java.time.LocalDateTime;
+
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hu.preznyak.eventmngr.constant.GeneralMessages;
 import hu.preznyak.eventmngr.exception.DateIntervalException;
+import hu.preznyak.eventmngr.exception.EntityNotFoundException;
+import hu.preznyak.eventmngr.exception.EventNotFoundException;
 import hu.preznyak.eventmngr.model.entity.Event;
 import hu.preznyak.eventmngr.model.repository.EventRepository;
 
 @Service
 public class EventManagementService extends GenericService<Event> {
 	
+	private final org.apache.logging.log4j.Logger logger = LogManager.getLogger();
     private EventRepository eventRepository;
 
     @Autowired
@@ -33,8 +38,17 @@ public class EventManagementService extends GenericService<Event> {
     }
 
     @Override
-    public Event update(Event entity) {
-        return eventRepository.save(entity);
+    public Event update(Event entity) throws EntityNotFoundException {
+    	Event event = eventRepository.findById(entity.getId()).orElse(null);
+    	if (event == null) {
+    		throw new EventNotFoundException(GeneralMessages.EVENT_NOT_FOUND);
+    	}
+    	event.setTitle(entity.getTitle());
+    	event.setLocation(entity.getLocation());
+    	event.setDescription(entity.getDescription());
+    	event.setStartDate(entity.getStartDate());
+    	event.setEndDate(entity.getEndDate());
+        return eventRepository.save(event);
     }
 
     @Override
@@ -53,6 +67,7 @@ public class EventManagementService extends GenericService<Event> {
     }
     
     public List<Event> findEventsByStartDateBefore(LocalDateTime startDate) {
+    	logger.info("Searching event before date: " + startDate);
     	return eventRepository.findEventsByStartDateBefore(startDate);
     }
     

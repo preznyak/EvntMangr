@@ -1,19 +1,29 @@
 package hu.preznyak.eventmngr.controller.event;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import hu.preznyak.eventmngr.exception.DateIntervalException;
 import hu.preznyak.eventmngr.model.builder.EventBuilder;
 import hu.preznyak.eventmngr.model.entity.Event;
 import hu.preznyak.eventmngr.model.repository.EventRepository;
 import hu.preznyak.eventmngr.service.EventManagementService;
-import org.apache.tomcat.jni.Local;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequestMapping("/event")
@@ -40,7 +50,7 @@ public class EventController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
+    public ResponseEntity<Event> createEvent(@Valid @RequestBody Event event) {
         Event newEvent = eventManagementService.save(event);
         return new ResponseEntity<>(newEvent, HttpStatus.CREATED);
     }
@@ -97,7 +107,7 @@ public class EventController {
 
     @GetMapping("/find/start/before")
     public ResponseEntity<List<Event>> findEventsByStartDateBefore(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate) {
-        return new ResponseEntity<>(eventRepository.findEventsByStartDateBefore(startDate), HttpStatus.OK);
+        return new ResponseEntity<>(eventManagementService.findEventsByStartDateBefore(startDate), HttpStatus.OK);
     }
 
     @GetMapping("/find/start/after")
