@@ -28,7 +28,7 @@ import hu.preznyak.eventmngr.service.EventManagementService;
 
 @SpringBootTest
 public class EventManagementServiceTest {
-	
+	/*
 	private static final String TITLE = "Test Title"; 
 	private static final String DESCRIPTION = "Test Description";
 	private static final String LOCATION = "Test Location";
@@ -54,7 +54,7 @@ public class EventManagementServiceTest {
     	events.add(event1.get());
     	events.add(event2.get());
     }
- /*
+
     @Test
     public void testFindEventById() {
     	when(eventRepository.findById(1)).thenReturn(event1);
@@ -66,7 +66,7 @@ public class EventManagementServiceTest {
         assertThat(eventManagementService.findById(2)).isNull();
         
         assertThrows(IllegalArgumentException.class, () -> eventManagementService.findById(null));
-    }*/
+    }
 
     @Test
     public void testFindAll() {
@@ -169,7 +169,7 @@ public class EventManagementServiceTest {
     }
     
     
-    
+    */
     
     
     

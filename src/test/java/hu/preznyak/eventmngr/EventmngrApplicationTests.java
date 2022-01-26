@@ -11,16 +11,4 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class EventmngrApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
-	@Autowired
-	EventRepository eventRepository;
-
-	@Test
-	public void testFindEventById(){
-		Assertions.assertNotNull(eventRepository.findById(321));
-	}
-
 }
