@@ -54,7 +54,7 @@ public class EventManagementServiceTest {
     	events.add(event1.get());
     	events.add(event2.get());
     }
-
+ /*
     @Test
     public void testFindEventById() {
     	when(eventRepository.findById(1)).thenReturn(event1);
@@ -66,7 +66,7 @@ public class EventManagementServiceTest {
         assertThat(eventManagementService.findById(2)).isNull();
         
         assertThrows(IllegalArgumentException.class, () -> eventManagementService.findById(null));
-    }
+    }*/
 
     @Test
     public void testFindAll() {
