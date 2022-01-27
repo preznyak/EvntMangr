@@ -125,5 +125,12 @@ public class EventManagementService extends GenericService<Event> {
     	logger.info("Searching event by location: " + location);
     	return eventRepository.findEventsByLocationContaining(location);
     }
+
+    public boolean isTheEventBeforeDate(Event event, LocalDateTime date){
+    	if(event.getStartDate().isBefore(date)){
+    		return true;
+		}
+    	return false;
+	}
     
 }
