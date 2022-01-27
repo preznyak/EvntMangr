@@ -17,4 +17,9 @@ public class EventManagementServiceTest {
         Assertions.assertTrue(event.getStartDate().isBefore(LocalDateTime.now()));
 
     }
+
+    @Test
+    void anotherDummyTest() {
+        Assertions.assertTrue(5>3);
+    }
 }
