@@ -22,4 +22,5 @@ public class EventManagementServiceTest {
     void anotherDummyTest() {
         Assertions.assertTrue(5>3);
     }
+
 }
